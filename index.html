@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boca Beach Weather</title>
+  <meta name="description" content="Pink beach weather for FAU in Boca Raton, powered by Open-Meteo." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Beach scene background -->
+  <div class="scene" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="ocean">
+      <div class="wave w1"></div>
+      <div class="wave w2"></div>
+    </div>
+    <div class="sand"></div>
+
+    <!-- Left palm tree -->
+    <svg class="palm palm-left" viewBox="0 0 200 400">
+      <path d="M100 400 C 95 300, 110 200, 100 110" stroke="#8a5a44" stroke-width="16" fill="none" stroke-linecap="round"/>
+      <g fill="#2e8b57">
+        <path d="M100 110 C 60 70, 20 80, 0 120 C 40 95, 70 100, 100 110 Z"/>
+        <path d="M100 110 C 140 70, 180 80, 200 120 C 160 95, 130 100, 100 110 Z"/>
+        <path d="M100 110 C 80 50, 40 30, 10 40 C 50 50, 80 80, 100 110 Z"/>
+        <path d="M100 110 C 120 50, 160 30, 190 40 C 150 50, 120 80, 100 110 Z"/>
+        <path d="M100 110 C 95 60, 100 20, 110 0 C 110 40, 105 80, 100 110 Z"/>
+      </g>
+      <circle cx="92" cy="118" r="7" fill="#6b4226"/>
+      <circle cx="106" cy="120" r="7" fill="#6b4226"/>
+    </svg>
+
+    <!-- Right palm tree -->
+    <svg class="palm palm-right" viewBox="0 0 200 400">
+      <path d="M100 400 C 110 300, 90 200, 100 110" stroke="#8a5a44" stroke-width="16" fill="none" stroke-linecap="round"/>
+      <g fill="#3a9d6a">
+        <path d="M100 110 C 60 70, 20 80, 0 120 C 40 95, 70 100, 100 110 Z"/>
+        <path d="M100 110 C 140 70, 180 80, 200 120 C 160 95, 130 100, 100 110 Z"/>
+        <path d="M100 110 C 80 50, 40 30, 10 40 C 50 50, 80 80, 100 110 Z"/>
+        <path d="M100 110 C 120 50, 160 30, 190 40 C 150 50, 120 80, 100 110 Z"/>
+        <path d="M100 110 C 95 60, 100 20, 110 0 C 110 40, 105 80, 100 110 Z"/>
+      </g>
+      <circle cx="94" cy="118" r="7" fill="#6b4226"/>
+      <circle cx="108" cy="120" r="7" fill="#6b4226"/>
+    </svg>
+  </div>
+
+  <main class="app">
+    <header>
+      <h1>Boca Beach Weather</h1>
+      <p class="location">🌴 Florida Atlantic University · Boca Raton, FL</p>
+    </header>
+
+    <section class="card current" id="current">
+      <p class="loading">Loading the beach forecast...</p>
+    </section>
+
+    <section class="card">
+      <h2>Next 24 Hours</h2>
+      <div class="hourly" id="hourly"></div>
+    </section>
+
+    <section class="card">
+      <h2>7-Day Forecast</h2>
+      <div class="daily" id="daily"></div>
+    </section>
+
+    <footer>
+      <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · Updated <span id="updated">—</span></p>
+      <button id="refresh" type="button">↻ Refresh</button>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
