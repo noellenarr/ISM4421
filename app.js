@@ -1,15 +1,43 @@
-// FAU Boca Raton coordinates
-const LAT = 26.3683;
-const LON = -80.1015;
+// Boca Raton (FAU) and nearby cities
+const CITIES = [
+  { name: "Boca Raton", note: "Florida Atlantic University", lat: 26.3683, lon: -80.1015 },
+  { name: "Deerfield Beach", lat: 26.3184, lon: -80.0998 },
+  { name: "Delray Beach", lat: 26.4615, lon: -80.0728 },
+  { name: "Boynton Beach", lat: 26.5318, lon: -80.0905 },
+  { name: "Lake Worth Beach", lat: 26.6168, lon: -80.0684 },
+  { name: "West Palm Beach", lat: 26.7153, lon: -80.0534 },
+  { name: "Parkland", lat: 26.3106, lon: -80.2373 },
+  { name: "Coral Springs", lat: 26.2712, lon: -80.2706 },
+  { name: "Coconut Creek", lat: 26.2517, lon: -80.1789 },
+  { name: "Margate", lat: 26.2445, lon: -80.2064 },
+  { name: "Pompano Beach", lat: 26.2379, lon: -80.1248 },
+  { name: "Fort Lauderdale", lat: 26.1224, lon: -80.1373 },
+];
 
-const API_URL =
-  "https://api.open-meteo.com/v1/forecast" +
-  `?latitude=${LAT}&longitude=${LON}` +
-  "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day" +
-  "&hourly=temperature_2m,weather_code,precipitation_probability,is_day" +
-  "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max" +
-  "&temperature_unit=fahrenheit&wind_speed_unit=mph" +
-  "&timezone=America%2FNew_York&forecast_days=7";
+function apiUrl(city) {
+  return (
+    "https://api.open-meteo.com/v1/forecast" +
+    `?latitude=${city.lat}&longitude=${city.lon}` +
+    "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day" +
+    "&hourly=temperature_2m,weather_code,precipitation_probability,is_day" +
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max" +
+    "&temperature_unit=fahrenheit&wind_speed_unit=mph" +
+    "&timezone=America%2FNew_York&forecast_days=7"
+  );
+}
+
+const citySelect = document.getElementById("city");
+CITIES.forEach((c, i) => citySelect.add(new Option(c.name, i)));
+
+// Remember the last city picked on this device
+try {
+  const saved = localStorage.getItem("city");
+  if (saved !== null && CITIES[saved]) citySelect.value = saved;
+} catch (e) {}
+
+function currentCity() {
+  return CITIES[citySelect.value] || CITIES[0];
+}
 
 // Open-Meteo weather codes -> [description, day icon, night icon]
 const WEATHER_CODES = {
@@ -126,8 +154,13 @@ function renderDaily(data) {
 }
 
 async function loadWeather() {
+  const city = currentCity();
+  document.getElementById("title").textContent = `${city.name} Weather`;
+  document.getElementById("subtitle").textContent = `🌴 ${city.note ? city.note + " · " : ""}${city.name}, FL`;
+  document.title = `${city.name} Weather`;
+
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(apiUrl(city));
     if (!res.ok) throw new Error(`Open-Meteo returned ${res.status}`);
     const data = await res.json();
 
@@ -146,6 +179,11 @@ async function loadWeather() {
 }
 
 document.getElementById("refresh").addEventListener("click", loadWeather);
+citySelect.addEventListener("change", () => {
+  try { localStorage.setItem("city", citySelect.value); } catch (e) {}
+  document.getElementById("current").innerHTML = `<p class="loading">Loading the beach forecast...</p>`;
+  loadWeather();
+});
 
 loadWeather();
 // Refresh every 15 minutes

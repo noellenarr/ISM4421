@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boca Beach Weather</title>
-  <meta name="description" content="Pink beach weather for FAU in Boca Raton, powered by Open-Meteo." />
+  <title>Boca Raton Weather</title>
+  <meta name="description" content="Pink beach weather for Boca Raton and nearby cities, powered by Open-Meteo." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,8 +52,12 @@
 
   <main class="app">
     <header>
-      <h1>Boca Beach Weather</h1>
-      <p class="location">🌴 Florida Atlantic University · Boca Raton, FL</p>
+      <h1 id="title">Boca Raton Weather</h1>
+      <p class="location" id="subtitle">🌴 Florida Atlantic University · Boca Raton, FL</p>
+      <label class="city-picker">
+        <span>Choose a city:</span>
+        <select id="city"></select>
+      </label>
     </header>
 
     <section class="card current" id="current">

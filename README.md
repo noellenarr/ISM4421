@@ -1,9 +1,10 @@
-# Boca Beach Weather 🌴
+# Boca Raton Weather 🌴
 
 A pink beach-themed weather app for **FAU in Boca Raton, FL**.
 It uses the free [Open-Meteo](https://open-meteo.com/) API (no key or login needed).
 
 ## Features
+- Pick Boca Raton or a nearby city from the dropdown
 - Current weather: temperature, feels like, humidity, wind, UV, sunrise/sunset
 - Next 24 hours
 - 7-day forecast
